@@ -1,0 +1,31 @@
+html *
+{
+    font-family: JetBrains Mono;
+}
+
+body {
+    padding-left: 100px;
+    padding-right: 100px;
+    align-items: center;
+}
+
+
+.description {
+    float: left;
+    width: 400px;
+    margin-top: 15px;
+}
+
+.evaluation {
+    float: left;
+    width: 400px;
+    margin-top: 15px;
+    padding-left: 100px;
+}
+
+#niftiViewer {
+    width: 400px;
+    height: 400px;
+    background-color: black;
+    margin-bottom: 15px;
+}
