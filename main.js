@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");  // ✅ FIXED: Now path is defined
+const { spawn } = require("child_process"); 
+
 
 let mainWindow;
 
@@ -78,3 +80,35 @@ ipcMain.handle("run-inference", async (event, filePath) => {
         return { error: "Failed to execute script" };
     }
 });
+
+ipcMain.handle("get-nifti-slices", async (event, filePath) => {
+    return new Promise((resolve, reject) => {
+      const pythonProcess = spawn("python", [
+        path.join(__dirname, "nifti2img.py"),
+        filePath,
+      ]);
+  
+      let dataBuffer = "";
+  
+      pythonProcess.stdout.on("data", (data) => {
+        dataBuffer += data.toString();
+      });
+  
+      pythonProcess.stderr.on("data", (data) => {
+        console.error(`Python error: ${data}`);
+      });
+  
+      pythonProcess.on("close", (code) => {
+        try {
+          const result = JSON.parse(dataBuffer);
+          if (result.error) {
+            reject(result.error);
+          } else {
+            resolve(result.slices);
+          }
+        } catch (error) {
+          reject("Failed to parse Python output");
+        }
+      });
+    });
+  });

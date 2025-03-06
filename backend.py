@@ -133,7 +133,7 @@ if __name__ == "__main__":
         if not nifti_file:
             raise ValueError("Missing file path.")
 
-        run_inference(nifti_file)
+        slices = run_inference(nifti_file)
 
     except Exception as e:
         sys.stderr.write(f"Script error: {e}\n")  # Log script errors
