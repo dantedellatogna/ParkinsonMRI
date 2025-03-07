@@ -5,11 +5,42 @@ import io
 import base64
 import sys
 import json
+from scipy import ndimage
+
+
+def resize_volume(img):
+    desired_width, desired_height = 400, 400
+
+    width_factor = img.shape[0] / desired_width
+    height_factor = img.shape[1] / desired_height
+
+    img = ndimage.rotate(img, 90, reshape=False)
+    img = ndimage.zoom(img, (1 / width_factor, 1 / height_factor, 1), order=1)
+    return img
+
+
+def normalize_image(img_array):
+    img_array = img_array.astype(np.float32)  # Ensure float type
+    img_array -= img_array.min()  # Set min to 0
+    img_array /= img_array.max()  # Scale to 0-1
+    img_array *= 255  # Scale to 0-255
+    return img_array.astype(np.uint8)  # Convert to uint8 for PIL
+
+
+def adjust_brightness(image, factor=1.5):
+    brightened = np.clip(
+        image * factor, 0, 255
+    )  # Ensure values stay within valid range
+    return brightened.astype(np.uint8)
 
 
 def convert_to_image(file_path):
     nifti_img = nib.load(file_path)
     data = nifti_img.get_fdata()
+
+    data = resize_volume(data)
+    data = normalize_image(data)
+    data = adjust_brightness(data, 1.5)
 
     slices = []
     for i in range(data.shape[2]):

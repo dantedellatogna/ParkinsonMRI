@@ -103,7 +103,7 @@ def run_inference(nifti_file):
             output = model(volume)
 
         prediction = 1 if output.item() > 0.5 else 0
-        diagnosis = "Parkinson's Disease" if prediction == 1 else "Control Group"
+        diagnosis = "Enfermedad de Parkinson" if prediction == 1 else "Control Normal"
 
         result = {
             "Output": float(output.item()),

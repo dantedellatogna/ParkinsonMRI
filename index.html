@@ -19,12 +19,20 @@
             al uso de Redes Neuronales Convolucionales 3D. En concreto, se hace 
             uso del modelo pre-entrenado RESNET 3D para la clasificación de 
             archivos tridimensionales.</p>
+        
+        <p>La SALIDA indica el resultado devuelto por la Red Neuronal. Si el resultado
+            es mayor a 0.5, se considera que el paciente tiene Parkinson. En caso
+            contrario, se considera que el paciente NO tiene Parkinson.
+        </p>
 
         <h2>Cómo utilizar:</h2>
         <p>Esta herramienta se encarga de analizar archivos NIFTI (.nii, .nii.gz). 
             Puedes hacer uso de ella con dos simples pasos:</p>
         <ol>
             <li>Haz clic en el botón "Seleccionar Archivo".</li>
+            <li>Utilzia la barra deslizadora para visualizar los diferentes
+                segmentos del archivo de Resonancia Magnética.
+            </li>
             <li>Haz clic en "Analizar" para obtener el resultado.</li>
         </ol>
     </section>
@@ -32,7 +40,7 @@
     <section class="evaluation">
         <h2>Evaluación de MRI</h2>
         <div id="niftiViewer"></div>
-        <input type="range" id="slider" min="0" max="100" value="0" step="1">
+        <input type="range" id="slider" min="0" max="100" value="0" step="1" style="width: 100%">
 
         <button id="fileInput">Seleccionar Archivo</button>
         <p id="selectedFile">No file selected</p>
