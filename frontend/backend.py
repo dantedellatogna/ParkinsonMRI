@@ -8,7 +8,7 @@ import json
 import sys
 from torchvision.models.video import r3d_18, R3D_18_Weights
 
-MODEL_PATH = "parkinson_classification_RESNET_2.pth"
+MODEL_PATH = "parkinson_classification_RESNET.pth"
 
 
 def load_model():
