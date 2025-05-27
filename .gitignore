@@ -1,0 +1,11 @@
+/.vscode/
+/.ipynb_checkpoints/
+/path/
+/histogram_analysis.ipynb
+/neurocon-taowu.py
+/package.json
+/script.py
+/test_mri.py
+/parkinson-mri/
+/dataset/
+*.pth
